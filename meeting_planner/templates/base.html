@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'website/style.css' %}">
+</head>
+<body>
+    {% if user.is_authenticated %}
+       Logged in as: {{ user.get_username }}
+       <form method="post" action="{% url 'logout' %}" style="float:right">
+           {% csrf_token %}
+           <button type="submit">Logout</button>
+       </form>
+    {% else %}
+       <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
